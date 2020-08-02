@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" 
+>
+
+<mapper namespace="com.liuning.mapper.CategoryMapper">
+
+	<!-- 商品列表查询 -->
+  	<select id="findCategoryList" resultType="com.liuning.pojo.Category">
+  		SELECT category.* FROM category
+  	</select>
+	
+	<!-- 一对多 -->
+	<resultMap type="com.liuning.pojo.Category" id="CategoryAndCategorySecondResultMap" >
+		
+		<id column="cid" property="cid"/>
+		<result column="cname" 	property="cname"/>
+		
+		<collection property="categorySeconds" ofType="com.liuning.pojo.CategorySecond">
+		 	<id column="csid" property="csid"/>
+		 	<result column="csname" property="csname"/>
+		 	<!-- <result column="cid" 	property="cid"/> -->
+		 	<!-- 在CategorySecond中，CategorySecond对应的Category是以对象的方式存放的，如果
+		 	要配置，应该用association -->
+		 </collection>
+		 
+	</resultMap>
+	
+	<!-- 查询订单关联一级分类和二级分类，使用resultmap -->
+	<select id="findCategoryAndCategorySecond" resultMap="CategoryAndCategorySecondResultMap">
+		SELECT * FROM 
+		  category,categorysecond 
+		WHERE 
+		  category.`cid` = categorysecond.`cid`
+	</select>
+	
+	
+	
+	<select id="findCategoryByCid" parameterType="int" resultMap="CategoryAndCategorySecondAndProductResultMap">
+		SELECT * FROM 
+		  category,categorysecond,product 
+		WHERE 
+		  category.`cid` = #{value} AND category.`cid` = categorysecond.`cid` AND product.`csid` = categorysecond.`csid`
+	</select>
+	
+	<resultMap type="com.liuning.pojo.Category" id="CategoryAndCategorySecondAndProductResultMap" >
+		<id column="cid" property="cid"/>
+		<result column="cname" 	property="cname"/>
+		<collection property="categorySeconds" ofType="com.liuning.pojo.CategorySecond">
+		 	<id column="csid" property="csid"/>
+		 	<result column="csname" property="csname"/>
+		 	<collection property="products" ofType="com.liuning.pojo.Product">
+		 		<id column="pid" property="pid"/>
+		 		<result column="pname" property="pname"/>
+		 		<result column="market_price" property="market_price"/>
+		 		<result column="shop_price" property="shop_price"/>
+		 		<result column="image" property="image"/>
+		 		<result column="pdesc" property="pdesc"/>
+		 		<result column="is_hot" property="is_hot"/>
+		 		<result column="pdate" property="pdate"/>
+		 	</collection>
+		 </collection>
+	</resultMap>
+	
+</mapper>

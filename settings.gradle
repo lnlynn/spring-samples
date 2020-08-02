@@ -1,4 +1,5 @@
 rootProject.name = 'spring-samples'
 include 'tank-war'
 include 'servlet'
+include 'ssm-quickstart'
 

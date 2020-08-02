@@ -1,0 +1,13 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans 
+			http://www.springframework.org/schema/beans/spring-beans-3.2.xsd 
+		">
+		
+	<!-- 用户管理的service -->
+	<bean id="userService"     class="com.liuning.service.impl.UserServiceImpl"	  />
+	<bean id="categoryService" class="com.liuning.service.impl.CategoryServiceImpl"/>
+	<bean id="productService"  class="com.liuning.service.impl.ProductServiceImpl" />
+	<bean id="ordersService"   class="com.liuning.service.impl.OrdersServiceImpl"  />
+
+</beans>

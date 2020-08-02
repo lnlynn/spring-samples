@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" 
+>
+
+<mapper namespace="com.liuning.mapper.ProductMapper">
+
+	<select id="findHotProductList" resultType="com.liuning.pojo.Product">
+		SELECT * FROM product WHERE is_hot = 1 ORDER BY pdate DESC
+	</select>
+	
+	<select id="findNewProductList" resultType="com.liuning.pojo.Product">
+		SELECT * FROM product ORDER BY pdate DESC LIMIT 0,10
+	</select>
+	
+	<select id="findProductById" parameterType="int" resultType="com.liuning.pojo.Product">
+		SELECT * FROM product WHERE pid = #{value}
+	</select>
+	
+</mapper>
