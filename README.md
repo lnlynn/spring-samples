@@ -30,7 +30,7 @@ Revision:     bacd40b727b0130eeac8855ae3f9fd9a0b207c60
 
 因为网络问题导致Gradle下载依赖很慢，需要配置国内镜像，在{GRADLE_HOME}/init.d/目录下新建`init.gradle`文件，内容如下：
 
-```json
+```xml
 allprojects {
     repositories {
         mavenLocal()
@@ -49,7 +49,7 @@ allprojects {
 
 也可以针对单个项目进行配置，在`build.gradle`中添加：
 
-```json
+```xml
 buildscript {
     repositories {
         maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/' }
